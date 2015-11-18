@@ -2,9 +2,9 @@ window.onload = function () {
 
   var seconds = 0;
 
-  var appendSeconds = document.getElementById("seconds")
-  var appendMinutes = document.getElementById("minutes")
-  var appendHours = document.getElementById("hours")
+  var appendSeconds = document.getElementById("seconds");
+  var appendMinutes = document.getElementById("minutes");
+  var appendHours = document.getElementById("hours");
   var appendMoney = document.getElementById('money');
   var hourlyRate = document.getElementById('hourlyRate');
 
@@ -25,11 +25,15 @@ window.onload = function () {
 
   buttonReset.onclick = function() {
     clearInterval(Interval);
-    seconds = "00";
-    appendSeconds.innerHTML = seconds;
+    timer.totalSeconds = 0;
+    appendSeconds.innerHTML = timer.pad(timer.getSeconds());
+    appendMinutes.innerHTML = timer.pad(timer.getMinutes());
+    appendHours.innerHTML = timer.pad(timer.getHours());
   };
 
+  function pad (number) {
 
+  }
 
   function startTimer () {
     var rate = Number(hourlyRate.value);
@@ -37,9 +41,30 @@ window.onload = function () {
       rate = 0;
     }
 
-    seconds++;
-    appendSeconds.innerHTML = "" + (parseInt(seconds / 10) % 6) + parseInt(seconds % 10);
-    appendMoney.innerHTML = "$" + (seconds / 60 / 60 * rate).toFixed(2);
-    //appendMoney.innerHTML = (((tens / 100 / 60 / 60) + (seconds / 60 / 60)) * hourlyRate).toFixed(2);
+    timer.totalSeconds++;
+    appendSeconds.innerHTML = timer.getSeconds();
+    appendMinutes.innerHTML = timer.getMinutes();
+    appendHours.innerHTML = timer.getHours();
+    appendMoney.innerHTML = "$" + (timer.totalSeconds / 60 / 60 * rate).toFixed(2);
   }
+  var timer = {
+    totalSeconds: 0,
+    pad: function(number) {
+      if(number < 10){
+        number = ("00" + number).slice(-2);
+      }
+      return number;
+    },
+    getHours: function() {
+      var hours = Math.floor(this.totalSeconds/3600);
+      return this.pad(hours);
+    },
+    getMinutes: function() {
+      var minutes = Math.floor((this.totalSeconds % 3600) / 60);
+      return this.pad(minutes);
+    },
+    getSeconds: function() {
+      return this.pad(this.totalSeconds % 60);
+    }
+  };
 };
