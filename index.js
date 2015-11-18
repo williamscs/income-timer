@@ -16,24 +16,24 @@ window.onload = function () {
 
   buttonStart.onclick = function() {
     Interval = setInterval(startTimer, 1000);
-  }
+  };
 
   buttonStop.onclick = function() {
     clearInterval(Interval);
-  }
+  };
 
 
   buttonReset.onclick = function() {
     clearInterval(Interval);
     seconds = "00";
     appendSeconds.innerHTML = seconds;
-  }
+  };
 
 
 
   function startTimer () {
     var rate = Number(hourlyRate.value);
-    if (rate === NaN) {
+    if (isNaN(rate)) {
       rate = 0;
     }
 
@@ -42,4 +42,4 @@ window.onload = function () {
     appendMoney.innerHTML = "$" + (seconds / 60 / 60 * rate).toFixed(2);
     //appendMoney.innerHTML = (((tens / 100 / 60 / 60) + (seconds / 60 / 60)) * hourlyRate).toFixed(2);
   }
-}
+};
