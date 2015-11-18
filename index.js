@@ -29,6 +29,7 @@ window.onload = function () {
     appendSeconds.innerHTML = timer.pad(timer.getSeconds());
     appendMinutes.innerHTML = timer.pad(timer.getMinutes());
     appendHours.innerHTML = timer.pad(timer.getHours());
+    appendMoney.innerHTML = "$" + (0).toFixed(2);
   };
 
   function pad (number) {
